@@ -8,9 +8,12 @@
         {
             this.strategy = strategy;
         }
+        
         public void ContextInterface()
         {
             strategy.AlgorithmInterface();
         }
     }
+
+
 }
