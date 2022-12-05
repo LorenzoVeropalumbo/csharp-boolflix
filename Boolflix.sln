@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boolflix", "Boolflix.csproj", "{695525F2-22C5-412D-A049-0CE2F88E1236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{695525F2-22C5-412D-A049-0CE2F88E1236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{695525F2-22C5-412D-A049-0CE2F88E1236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{695525F2-22C5-412D-A049-0CE2F88E1236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{695525F2-22C5-412D-A049-0CE2F88E1236}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF7F497E-2F09-40EC-A90A-4AD2F246A992}
+	EndGlobalSection
+EndGlobal
