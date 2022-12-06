@@ -1,0 +1,72 @@
+﻿@using Boolflix.Models.DataHome
+
+@model FormData
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <h1 class="mt-3 mb-3">Nuovo Contenuto</h1>
+            </div>
+            <form asp-controller="Admin" asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <strong>Immagine:</strong>
+                    <input asp-for="Film.Poster" class="d-block w-100" />
+                    <span asp-validation-for="Film.Poster" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>Titolo:</strong>
+                    <input asp-for="Film.Title" class="d-block w-100" />
+                    <span asp-validation-for="Film.Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>Contenuto:</strong>
+                    <textarea asp-for="Film.Description" rows="10" class="d-block w-100"></textarea>
+                    <span asp-validation-for="Film.Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>PG:</strong>
+                    <input asp-for="Film.PG" class="d-block w-100"></input>
+                    <span asp-validation-for="Film.PG" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>Compatibilità:</strong>
+                    <input asp-for="Film.Compatibility" class="d-block w-100"></input>
+                    <span asp-validation-for="Film.Compatibility" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>Data di uscita:</strong>
+                    <input asp-for="Film.Year" class="d-block w-100"></input>
+                    <span asp-validation-for="Film.Year" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>durata:</strong>
+                    <input asp-for="Film.Duration" class="d-block w-100"></input>
+                    <span asp-validation-for="Film.Duration" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <strong>Genre:</strong>
+                    <select asp-for="SelectedGenres"
+                            asp-items="@Model.Genres"
+                            multiple="multiple"
+                            size="10"
+                            class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <strong>Cast:</strong>
+                    <select asp-for="SelectedCasts"
+                            asp-items="@Model.Casts"
+                            multiple="multiple"
+                            size="10"
+                            class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+                    </select>
+                </div>
+                <div class="text-end">
+                    <input type="submit" class="btn btn-small btn-success" value="Salva">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

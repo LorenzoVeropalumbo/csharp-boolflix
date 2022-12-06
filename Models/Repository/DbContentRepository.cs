@@ -1,7 +1,9 @@
-﻿using Boolflix.Data;
+﻿using Azure;
+using Boolflix.Data;
 using Boolflix.Models.DataHome;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.SqlServer.Server;
 
 namespace Boolflix.Models.Repository
 {
@@ -31,9 +33,29 @@ namespace Boolflix.Models.Repository
             return db.SerieTVs.ToList();
         }
 
-        public void Create(Content content, List<int> selectedGenre)
+        public void Create(Film film, List<int> selectedGenre, List<int> selectedCast)
         {
-            throw new NotImplementedException();
+            film.Genres = new List<Genre>();
+
+            foreach (int genreId in selectedGenre)
+            {
+                //todo: implementare repository tag?
+                Genre genre = db.Genres.Where(t => t.Id == genreId).FirstOrDefault();
+                film.Genres.Add(genre);
+            }
+
+            film.Casts = new List<Cast>();
+            foreach (int castId in selectedCast)
+            {
+                //todo: implementare repository tag?
+                Cast cast = db.Casts.Where(t => t.Id == castId).FirstOrDefault();
+                film.Casts.Add(cast);
+            }
+
+            film.AlreadySeen = false;
+            film.Remaining_time = film.Duration;
+            db.Films.Add(film);
+            db.SaveChanges();
         }
 
         public void Delete(Content content)

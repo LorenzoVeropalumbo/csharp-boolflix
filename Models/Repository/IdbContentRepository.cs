@@ -10,7 +10,7 @@ namespace Boolflix.Models.Repository
         Film GetFilmById(int id);
         SerieTV GetSerieById(int id);
 
-        void Create(Content content, List<int> selectedGenre);
+        void Create(Film film, List<int> selectedGenre, List<int> selectedCast);
         void Delete(Content content);
 
         List<Content> SearchByTitle(string? title);        
