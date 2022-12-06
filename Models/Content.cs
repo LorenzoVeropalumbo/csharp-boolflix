@@ -6,6 +6,7 @@ namespace Boolflix.Models
 {
     public abstract class Content
     {
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
@@ -18,8 +19,12 @@ namespace Boolflix.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
-        [Range(1, 5, ErrorMessage = "il rating deve essere compreso tra 1 e 5 stelle")]
-        public double Rating { get; set; }
+        [StringLength(255, ErrorMessage = "La descrizione non può essere oltre i 255 caratteri")]
+        [Column(TypeName = "text")]
+        public string Poster { get; set; }
+
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        public int PG { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         public bool AlreadySeen { get; set; }

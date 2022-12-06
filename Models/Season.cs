@@ -1,4 +1,6 @@
-﻿namespace Boolflix.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Boolflix.Models
 {
     public class Season
     {
