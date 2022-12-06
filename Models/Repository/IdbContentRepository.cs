@@ -1,13 +1,18 @@
-﻿namespace Boolflix.Models.Repository
+﻿using Boolflix.Models.DataHome;
+
+namespace Boolflix.Models.Repository
 {
     public interface IdbContentRepository
     {
-        List<Content> All();
-        List<Content> AllFilm();
-        List<Content> AllSeries();
+        IndexData All();
+        List<Film> AllFilm();
+        List<SerieTV> AllSeries();        
+        Film GetFilmById(int id);
+        SerieTV GetSerieById(int id);
+
         void Create(Content content, List<int> selectedGenre);
         void Delete(Content content);
-        Content GetById(int id);
+
         List<Content> SearchByTitle(string? title);        
         void Update(Content content, Content formData, List<int>? selectedGenre);
     }

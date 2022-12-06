@@ -1,20 +1,34 @@
-﻿namespace Boolflix.Models.Repository
+﻿using Boolflix.Data;
+using Boolflix.Models.DataHome;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+
+namespace Boolflix.Models.Repository
 {
     public class DbContentRepository : IdbContentRepository
     {
-        public List<Content> All()
+        private BoolflixDbContext db;
+
+        public DbContentRepository(BoolflixDbContext _db)
         {
-            throw new NotImplementedException();
+            db = _db;
+        }
+        public IndexData All()
+        {
+            IndexData indexData = new IndexData();
+            indexData.Films = db.Films.Include("Casts").Include("Genres").ToList();
+            indexData.Series = db.SerieTVs.Include("Casts").Include("Genres").Include("Seasons").ToList();
+            return indexData;
         }
 
-        public List<Content> AllFilm()
+        public List<Film> AllFilm()
         {
-            throw new NotImplementedException();
+            return db.Films.ToList();
         }
 
-        public List<Content> AllSeries()
+        public List<SerieTV> AllSeries()
         {
-            throw new NotImplementedException();
+            return db.SerieTVs.ToList();
         }
 
         public void Create(Content content, List<int> selectedGenre)
@@ -27,9 +41,14 @@
             throw new NotImplementedException();
         }
 
-        public Content GetById(int id)
+        public Film GetFilmById(int id)
         {
-            throw new NotImplementedException();
+            return db.Films.Where(f => f.Id == id).Include("Casts").Include("Genres").FirstOrDefault();
+        }
+
+        public SerieTV GetSerieById(int id)
+        {
+            return db.SerieTVs.Where(s => s.Id == id).Include("Casts").Include("Genres").Include("Seasons").FirstOrDefault();
         }
 
         public List<Content> SearchByTitle(string? title)

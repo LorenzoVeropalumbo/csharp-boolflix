@@ -1,8 +1,50 @@
-﻿@{
+﻿@using Boolflix.Models.DataHome
+@{
     ViewData["Title"] = "Home Page";
 }
+@model IndexData
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        
+        @foreach (Film film in Model.Films)
+        {
+
+            <div class="col">
+
+                <div class="card" style="width: 18rem;">
+                    <a class="btn" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })">
+                        <img class="card-img-top" src="@film.Poster" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </a>
+                </div>                
+            </div>   
+        }
+        
+        
+        @foreach (SerieTV serie in Model.Series)
+        {
+            <div class="col">
+                <div class="card">
+                    <a class="btn" href="@Url.Action("DetailSerie", "Home", new { id = serie.Id })">
+                        <img class="card-img-top" src="@serie.Poster" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@serie.Description</h5>
+                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </a>
+                </div>      
+            </div>
+        }
+    </div>
 </div>
+
+@if(User.Identity.IsAuthenticated)
+{
+    <div>dawdwadwadaw</div>
+}
