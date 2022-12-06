@@ -13,6 +13,7 @@ namespace Boolflix.Data
         public DbSet<Film> Films { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Episode> Episodes { get; set; }
+        public DbSet<Content> Contents { get; set; }
 
         public BoolflixDbContext(DbContextOptions<BoolflixDbContext> options)
         : base(options)
