@@ -31,9 +31,19 @@ namespace Boolflix.Models.Repository
         public List<SerieTV> AllSeries()
         {
             return db.SerieTVs.ToList();
+        }        
+        
+        public Film GetFilmById(int id)
+        {
+            return db.Films.Where(f => f.Id == id).Include("Casts").Include("Genres").FirstOrDefault();
         }
 
-        public void Create(Film film, List<int> selectedGenre, List<int> selectedCast)
+        public SerieTV GetSerieById(int id)
+        {
+            return db.SerieTVs.Where(s => s.Id == id).Include("Casts").Include("Genres").Include("Seasons").FirstOrDefault();
+        }
+
+        public void CreateFilm(Film film, List<int> selectedGenre, List<int> selectedCast)
         {
             film.Genres = new List<Genre>();
 
@@ -56,31 +66,79 @@ namespace Boolflix.Models.Repository
             film.Remaining_time = film.Duration;
             db.Films.Add(film);
             db.SaveChanges();
+        }        
+        
+        public void CreateSerie(SerieTV serie, List<int> selectedGenre, List<int> selectedCast)
+        {
+            serie.Genres = new List<Genre>();
+
+            foreach (int genreId in selectedGenre)
+            {
+                //todo: implementare repository tag?
+                Genre genre = db.Genres.Where(t => t.Id == genreId).FirstOrDefault();
+                serie.Genres.Add(genre);
+            }
+
+            serie.Casts = new List<Cast>();
+            foreach (int castId in selectedCast)
+            {
+                //todo: implementare repository tag?
+                Cast cast = db.Casts.Where(t => t.Id == castId).FirstOrDefault();
+                serie.Casts.Add(cast);
+            }
+
+            serie.AlreadySeen = false;           
+            db.SerieTVs.Add(serie);
+            db.SaveChanges();
         }
 
-        public void Delete(Content content)
+        public void UpdateFilm(Film film, Film formData, List<int>? selectedGenre, List<int>? selectedCast)
         {
-            throw new NotImplementedException();
+            if (selectedGenre == null)
+            {
+                selectedGenre = new List<int>();
+            }
+
+            film.Title = formData.Title;
+            film.Description = formData.Description;
+            film.Poster = formData.Poster;
+            film.PG = formData.PG;
+            film.Year = formData.Year;
+            film.Compatibility = formData.Compatibility;
+
+            film.Genres.Clear();
+
+
+            foreach (int genresId in selectedGenre)
+            {
+                Genre genre = db.Genres.Where(t => t.Id == genresId).FirstOrDefault();
+                film.Genres.Add(genre);
+            }
+
+            film.Casts.Clear();
+
+
+            foreach (int castId in selectedCast)
+            {
+                Cast cast = db.Casts.Where(t => t.Id == castId).FirstOrDefault();
+                film.Casts.Add(cast);
+            }
+
+            db.SaveChanges();
         }
 
-        public Film GetFilmById(int id)
+        public void DeleteFilm(Film film)
         {
-            return db.Films.Where(f => f.Id == id).Include("Casts").Include("Genres").FirstOrDefault();
+            db.Films.Remove(film);
+            db.SaveChanges();
         }
 
-        public SerieTV GetSerieById(int id)
-        {
-            return db.SerieTVs.Where(s => s.Id == id).Include("Casts").Include("Genres").Include("Seasons").FirstOrDefault();
-        }
 
         public List<Content> SearchByTitle(string? title)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Content content, Content formData, List<int>? selectedGenre)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

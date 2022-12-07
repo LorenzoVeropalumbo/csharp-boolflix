@@ -8,42 +8,37 @@
             <div class="d-flex align-items-center">
                 <h1 class="mt-3 mb-3">Nuovo Contenuto</h1>
             </div>
-            <form asp-controller="Admin" asp-action="Create" method="post">
+            <form asp-controller="Admin" asp-action="CreateSerie" method="post">
 
                 <div class="mb-3">
                     <strong>Immagine:</strong>
-                    <input asp-for="Film.Poster" class="d-block w-100" />
-                    <span asp-validation-for="Film.Poster" class="text-danger"></span>
+                    <input asp-for="Serie.Poster" class="d-block w-100" />
+                    <span asp-validation-for="Serie.Poster" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Titolo:</strong>
-                    <input asp-for="Film.Title" class="d-block w-100" />
-                    <span asp-validation-for="Film.Title" class="text-danger"></span>
+                    <input asp-for="Serie.Title" class="d-block w-100" />
+                    <span asp-validation-for="Serie.Title" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Contenuto:</strong>
-                    <textarea asp-for="Film.Description" rows="10" class="d-block w-100"></textarea>
-                    <span asp-validation-for="Film.Description" class="text-danger"></span>
+                    <textarea asp-for="Serie.Description" rows="10" class="d-block w-100"></textarea>
+                    <span asp-validation-for="Serie.Description" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>PG:</strong>
-                    <input asp-for="Film.PG" class="d-block w-100"></input>
-                    <span asp-validation-for="Film.PG" class="text-danger"></span>
+                    <input asp-for="Serie.PG" class="d-block w-100"></input>
+                    <span asp-validation-for="Serie.PG" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Compatibilità:</strong>
-                    <input asp-for="Film.Compatibility" class="d-block w-100"></input>
-                    <span asp-validation-for="Film.Compatibility" class="text-danger"></span>
+                    <input asp-for="Serie.Compatibility" class="d-block w-100"></input>
+                    <span asp-validation-for="Serie.Compatibility" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Data di uscita:</strong>
-                    <input asp-for="Film.Year" class="d-block w-100"></input>
-                    <span asp-validation-for="Film.Year" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <strong>durata:</strong>
-                    <input asp-for="Film.Duration" class="d-block w-100"></input>
-                    <span asp-validation-for="Film.Duration" class="text-danger"></span>
+                    <input asp-for="Serie.Year" class="d-block w-100"></input>
+                    <span asp-validation-for="Serie.Year" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Genre:</strong>

@@ -1,4 +1,5 @@
 ﻿using Boolflix.Models.DataHome;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Boolflix.Models.Repository
 {
@@ -10,10 +11,13 @@ namespace Boolflix.Models.Repository
         Film GetFilmById(int id);
         SerieTV GetSerieById(int id);
 
-        void Create(Film film, List<int> selectedGenre, List<int> selectedCast);
-        void Delete(Content content);
+        void CreateFilm(Film film, List<int> selectedGenre, List<int> selectedCast);
+        void CreateSerie(SerieTV serie, List<int> selectedGenre, List<int> selectedCast);
+        public IActionResult CreateSeason(List<Episode> episodes);
+        void UpdateFilm(Film film, Film formData, List<int>? selectedGenre, List<int>? selectedCast);
+        void DeleteFilm(Film film);
 
         List<Content> SearchByTitle(string? title);        
-        void Update(Content content, Content formData, List<int>? selectedGenre);
+        
     }
 }

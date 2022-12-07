@@ -25,7 +25,7 @@ namespace Boolflix.Controllers
             boolflixRepository = _boolflixRepository;
         }
 
-        public IActionResult Create()
+        public IActionResult CreateFilm()
         {
             FormData formData = new FormData();
 
@@ -52,13 +52,189 @@ namespace Boolflix.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(FormData formData)
+        public IActionResult CreateFilm(FormData formData)
         {
-            boolflixRepository.Create(formData.Film, formData.SelectedGenres, formData.SelectedCasts);
+            if (!ModelState.IsValid)
+            {             
+                formData.Genres = new List<SelectListItem>();
+                List<Genre> genresList = db.Genres.ToList();
+                foreach (Genre genre in genresList)
+                {
+                    formData.Genres.Add(new SelectListItem(genre.Name, genre.Id.ToString()));
+                }
+
+                formData.Casts = new List<SelectListItem>();
+                List<Cast> castList = db.Casts.ToList();
+                foreach (Cast cast in castList)
+                {
+                    formData.Casts.Add(new SelectListItem(cast.Nome + " " + cast.Lastnome, cast.Id.ToString()));
+                }
+
+                return View(formData);
+            }
+            
+            boolflixRepository.CreateFilm(formData.Film, formData.SelectedGenres, formData.SelectedCasts);
             
             return RedirectToAction("Index");
         }
 
+        public IActionResult CreateSerie()
+        {
+            FormData formData = new FormData();
+
+            formData.Serie = new SerieTV();
+            formData.Genres = new List<SelectListItem>();
+            formData.Casts = new List<SelectListItem>();
+
+            List<Cast> castList = db.Casts.ToList();
+
+            foreach (Cast cast in castList)
+            {
+                formData.Casts.Add(new SelectListItem(cast.Nome + " " + cast.Lastnome, cast.Id.ToString()));
+            }
+
+            List<Genre> genresList = db.Genres.ToList();
+
+            foreach (Genre genre in genresList)
+            {
+                formData.Genres.Add(new SelectListItem(genre.Name, genre.Id.ToString()));
+            }
+
+            return View(formData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateSerie(FormData formData)
+        {
+            if (!ModelState.IsValid)
+            {
+                formData.Genres = new List<SelectListItem>();
+                List<Genre> genresList = db.Genres.ToList();
+                foreach (Genre genre in genresList)
+                {
+                    formData.Genres.Add(new SelectListItem(genre.Name, genre.Id.ToString()));
+                }
+
+                formData.Casts = new List<SelectListItem>();
+                List<Cast> castList = db.Casts.ToList();
+                foreach (Cast cast in castList)
+                {
+                    formData.Casts.Add(new SelectListItem(cast.Nome + " " + cast.Lastnome, cast.Id.ToString()));
+                }
+
+                return View(formData);
+            }
+
+            boolflixRepository.CreateSerie(formData.Serie, formData.SelectedGenres, formData.SelectedCasts);
+
+            return RedirectToAction("Index","Home");
+        }
+
+        public IActionResult CreateSeason()
+        {
+            return View();
+        }
+
+            [HttpPost]
+        public IActionResult CreateSeason(SeasonData seasonData,int id)
+        {
+            Season season = new Season();
+            season.SerieTVId = id;
+            season.Episodes = seasonData.Episodes;
+
+            db.Seasons.Add(season);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult UpdateFilm(int id)
+        {
+
+            Film film = boolflixRepository.GetFilmById(id);
+
+            if (film == null)
+                return NotFound();
+
+            FormData formData = new FormData();
+
+            formData.Film = film;
+            formData.Genres = new List<SelectListItem>();
+            formData.Casts = new List<SelectListItem>();
+
+            List<Cast> castList = db.Casts.ToList();
+
+            foreach (Cast cast in castList)
+            {
+                formData.Casts.Add(new SelectListItem(cast.Nome + " " + cast.Lastnome, cast.Id.ToString(), film.Casts.Any(t => t.Id == cast.Id)));
+            }
+
+            List<Genre> genresList = db.Genres.ToList();
+
+            foreach (Genre genre in genresList)
+            {
+                formData.Genres.Add(new SelectListItem(genre.Name, genre.Id.ToString(),film.Genres.Any(t => t.Id == genre.Id)));
+            }
+
+            return View(formData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateFilm(int id, FormData formData)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                formData.Film.Id = id;
+                //return View(postItem);
+                formData.Genres = new List<SelectListItem>();
+                List<Genre> genresList = db.Genres.ToList();
+                foreach (Genre genre in genresList)
+                {
+                    formData.Genres.Add(new SelectListItem(genre.Name, genre.Id.ToString()));
+                }
+
+                formData.Casts = new List<SelectListItem>();
+                List<Cast> castList = db.Casts.ToList();
+                foreach (Cast cast in castList)
+                {
+                    formData.Casts.Add(new SelectListItem(cast.Nome + " " + cast.Lastnome, cast.Id.ToString()));
+                }
+
+                return View(formData);
+            }
+
+            //update esplicito con nuovo oggetto
+            Film filmItem = boolflixRepository.GetFilmById(id);
+
+            if (filmItem == null)
+            {
+                return NotFound();
+            }
+
+            boolflixRepository.UpdateFilm(filmItem, formData.Film,formData.SelectedGenres,formData.SelectedCasts);
+
+            return RedirectToAction("Index","Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteFilm(int id)
+        {
+            Film filmTodelete = boolflixRepository.GetFilmById(id);
+
+            if (filmTodelete == null)
+            {
+                return NotFound();
+            }
+
+            boolflixRepository.DeleteFilm(filmTodelete);
+
+
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }
