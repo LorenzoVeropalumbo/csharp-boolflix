@@ -13,9 +13,9 @@ namespace Boolflix.Models.Repository
 
         void CreateFilm(Film film, List<int> selectedGenre, List<int> selectedCast);
         void CreateSerie(SerieTV serie, List<int> selectedGenre, List<int> selectedCast);
-        public IActionResult CreateSeason(List<Episode> episodes);
         void UpdateFilm(Film film, Film formData, List<int>? selectedGenre, List<int>? selectedCast);
         void DeleteFilm(Film film);
+        void DeleteSerie(SerieTV serieTV);
 
         List<Content> SearchByTitle(string? title);        
         

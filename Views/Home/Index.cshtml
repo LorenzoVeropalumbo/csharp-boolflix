@@ -5,58 +5,46 @@
 @model IndexData
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row index_boolflix">
         
         @foreach (Film film in Model.Films)
         {
-
-            <div class="col">
-
+            <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                    <a class="btn" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })">
-                        <img class="card-img-top" src="@film.Poster" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">@film.Title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a class="btn btn-warning btn-sm" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                                </a>
-                                <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post">
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
-                                </form>
-                            }
-                        </div>
-                    </a>
-                </div>                
-            </div>   
+                    <img src="@film.Poster" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@film.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@film.Compatibility% Compatibile</h6>
+                        <p class="card-text">@film.Description</p>
+                        <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
+                        <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
+                            <button type="submit">
+                                Elimina
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
         
         
         @foreach (SerieTV serie in Model.Series)
         {
-            <div class="col">
-                <div class="card">
-                    <a class="btn" href="@Url.Action("DetailSerie", "Home", new { id = serie.Id })">
-                        <img class="card-img-top" src="@serie.Poster" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">@serie.Description</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            <a class="btn btn-warning btn-sm" href="@Url.Action("UpdateFilm", "Admin", new { id = serie.Id })">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                            </a>
-                            <form asp-controller="Post" asp-action="Delete" asp-route-id="@serie.Id" method="post">
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </form>
-                        </div>
-                    </a>
-                </div>      
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="@serie.Poster" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@serie.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@serie.Compatibility% Compatibile</h6>
+                        <p class="card-text">@serie.Description</p>
+                        <a class="btn mr-2" href="@Url.Action("UpdateSerie", "Admin", new { id = serie.Id })">Modifica</a>
+                        <form asp-controller="Admin" asp-action="DeleteSerie" asp-route-id="@serie.Id" method="post" class="d-inline btn">
+                            <button type="submit">
+                                Elimina
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         }
     </div>

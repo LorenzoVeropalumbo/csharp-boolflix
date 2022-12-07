@@ -54,6 +54,7 @@ namespace Boolflix.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateFilm(FormData formData)
         {
+            formData.Film.Remaining_time = formData.Film.Duration;
             if (!ModelState.IsValid)
             {             
                 formData.Genres = new List<SelectListItem>();
@@ -75,7 +76,7 @@ namespace Boolflix.Controllers
             
             boolflixRepository.CreateFilm(formData.Film, formData.SelectedGenres, formData.SelectedCasts);
             
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult CreateSerie()
@@ -129,24 +130,6 @@ namespace Boolflix.Controllers
             boolflixRepository.CreateSerie(formData.Serie, formData.SelectedGenres, formData.SelectedCasts);
 
             return RedirectToAction("Index","Home");
-        }
-
-        public IActionResult CreateSeason()
-        {
-            return View();
-        }
-
-            [HttpPost]
-        public IActionResult CreateSeason(SeasonData seasonData,int id)
-        {
-            Season season = new Season();
-            season.SerieTVId = id;
-            season.Episodes = seasonData.Episodes;
-
-            db.Seasons.Add(season);
-            db.SaveChanges();
-
-            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult UpdateFilm(int id)
@@ -231,6 +214,33 @@ namespace Boolflix.Controllers
             }
 
             boolflixRepository.DeleteFilm(filmTodelete);
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteSerie(int id)
+        {
+            SerieTV serieTodelete = boolflixRepository.GetSerieById(id);
+
+            if (serieTodelete == null)
+            {
+                return NotFound();
+            }
+
+            foreach(Season seasons in serieTodelete.Seasons)
+            {
+                if(seasons.Episodes != null)
+                {
+                    seasons.Episodes.Clear();
+                }
+
+                db.SaveChanges();
+            }
+
+            boolflixRepository.DeleteSerie(serieTodelete);
 
 
             return RedirectToAction("Index", "Home");

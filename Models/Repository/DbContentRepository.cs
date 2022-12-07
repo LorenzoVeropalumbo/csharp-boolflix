@@ -133,12 +133,17 @@ namespace Boolflix.Models.Repository
             db.SaveChanges();
         }
 
+        public void DeleteSerie(SerieTV serieTV)
+        {
+            db.SerieTVs.Remove(serieTV);
+            db.SaveChanges();
+        }
+
 
         public List<Content> SearchByTitle(string? title)
         {
             throw new NotImplementedException();
         }
-
 
     }
 }
