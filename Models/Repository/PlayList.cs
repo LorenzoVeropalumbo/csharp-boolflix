@@ -2,16 +2,16 @@
 {
     public class PlayList
     {
-        Strategy strategy;
+        private Strategy strategy;
         // Constructor
-        public PlayList(Strategy strategy)
+        public void SetStrategy(Strategy strategy)
         {
             this.strategy = strategy;
         }
         
-        public void ContextInterface()
+        public void EseguiStrategy(Strategy strategy,string Genre)
         {
-            strategy.AlgorithmInterface();
+            strategy.AlgorithmInterface(Genre);
         }
     }
 

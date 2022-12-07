@@ -2,14 +2,14 @@
 {
     public interface Strategy
     {
-        public abstract void AlgorithmInterface();
+        public abstract void AlgorithmInterface(string Genre);
     }
 
-    public class getSeries : Strategy
+    public class SearchByCategory : Strategy
     {
-        public void AlgorithmInterface()
+        public void AlgorithmInterface(string Genre)
         {
-            Console.WriteLine("Called ConcreteStrategyA.AlgorithmInterface()");
+            
         }
     }
 }

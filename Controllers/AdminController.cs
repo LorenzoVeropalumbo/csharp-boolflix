@@ -262,21 +262,22 @@ namespace Boolflix.Controllers
             return RedirectToAction("DetailSerie", "Home", new { ID = id });
         }
 
-        public IActionResult CreateEpisode(int id)
-        {
-            Episode episode = new Episode();
+        //public IActionResult CreateEpisode(int id)
+        //{
+        //    Episode episode = new Episode();
 
-            return View(episode);
-        }
+        //    return View(episode);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateEpisode(Episode episode)
-        {
-            episode.Remaining_time = episode.Duration;
-            db.Episodes.Add(episode);
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home"); ;
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult CreateEpisode(Episode episode)
+        //{
+        //    episode.Remaining_time = episode.Duration;
+        //    episode.SeasonId = 2;
+        //    db.Episodes.Add(episode);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index", "Home"); ;
+        //}
     }
 }
