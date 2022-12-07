@@ -148,9 +148,9 @@ namespace Boolflix.Models.Repository
         public IndexData SearchByGenre(string genre)
         {
             PlayList playList = new PlayList();
-            Strategy strategy = new SearchByCategory();
+            IStrategy strategy = new SearchByCategory();
             playList.SetStrategy(strategy);
-            IndexData serieTVs = playList.EseguiStrategy(strategy, genre, db);
+            IndexData serieTVs = playList.EseguiStrategy(genre, db);
 
             return serieTVs;
         }

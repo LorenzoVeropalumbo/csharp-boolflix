@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Boolflix.Models.Repository
 {
-    public interface Strategy
+    public interface IStrategy
     {
         public abstract IndexData AlgorithmInterface(string Genre, BoolflixDbContext db);
     }
 
-    public class SearchByCategory : Strategy
+    public class SearchByCategory : IStrategy
     {
         public IndexData AlgorithmInterface(string genre, BoolflixDbContext db)
         {

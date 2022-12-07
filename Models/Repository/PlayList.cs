@@ -5,14 +5,14 @@ namespace Boolflix.Models.Repository
 {
     public class PlayList
     {
-        private Strategy strategy;
+        public IStrategy strategy;
         // Constructor
-        public void SetStrategy(Strategy strategy)
+        public void SetStrategy(IStrategy strategy)
         {
             this.strategy = strategy;
         }
         
-        public IndexData EseguiStrategy(Strategy strategy,string Genre, BoolflixDbContext db)
+        public IndexData EseguiStrategy(string Genre, BoolflixDbContext db)
         {
             return strategy.AlgorithmInterface(Genre, db);
         }
