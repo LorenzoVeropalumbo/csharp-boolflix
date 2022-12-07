@@ -10,18 +10,21 @@
         @foreach (Film film in Model.Films)
         {
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="@film.Poster" class="card-img-top" alt="...">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })"><img src="@film.Poster" class="card-img-top" alt="@film.Title"></a>
                     <div class="card-body">
                         <h5 class="card-title">@film.Title</h5>
                         <h6 class="card-subtitle mb-2" style="color: green;">@film.Compatibility% Compatibile</h6>
                         <p class="card-text">@film.Description</p>
-                        <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
-                        <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
-                            <button type="submit">
-                                Elimina
-                            </button>
-                        </form>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
+                            <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
@@ -31,18 +34,20 @@
         @foreach (SerieTV serie in Model.Series)
         {
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="@serie.Poster" class="card-img-top" alt="...">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailSerie", "Home", new { id = serie.Id })"><img src="@serie.Poster" class="card-img-top" alt="@serie.Title"></a>
                     <div class="card-body">
                         <h5 class="card-title">@serie.Title</h5>
                         <h6 class="card-subtitle mb-2" style="color: green;">@serie.Compatibility% Compatibile</h6>
                         <p class="card-text">@serie.Description</p>
-                        <a class="btn mr-2" href="@Url.Action("UpdateSerie", "Admin", new { id = serie.Id })">Modifica</a>
-                        <form asp-controller="Admin" asp-action="DeleteSerie" asp-route-id="@serie.Id" method="post" class="d-inline btn">
-                            <button type="submit">
-                                Elimina
-                            </button>
-                        </form>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="Admin" asp-action="DeleteSerie" asp-route-id="@serie.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
@@ -52,6 +57,26 @@
 
 @if(User.Identity.IsAuthenticated)
 {
-    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="CreateFilm">Crea nuovo Elemento</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="CreateSerie">Crea nuovo Elemento</a>
+    <div class="d-flex">
+        <a class="nav-link text-dark d-inline" asp-area="" asp-controller="Admin" asp-action="CreateFilm">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Aggiungi un Film</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="nav-link text-dark d-inline" asp-area="" asp-controller="Admin" asp-action="CreateSerie">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Aggiungi una Serie</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 }

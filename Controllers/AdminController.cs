@@ -246,5 +246,19 @@ namespace Boolflix.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult CreateSeason(int id)
+        {
+            SerieTV serieTV = boolflixRepository.GetSerieById(id);
+            
+            Season season = new Season();
+            season.SeasonNumber = serieTV.Seasons.Count() + 1;
+            season.SerieTV = serieTV;
+            season.SerieTVId = id;
+            
+            db.Seasons.Add(season);
+            db.SaveChanges();
+
+            return RedirectToAction("DetailSerie", "Home", new { ID = id });
+        }
     }
 }

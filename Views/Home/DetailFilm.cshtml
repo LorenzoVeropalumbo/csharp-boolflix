@@ -1,5 +1,25 @@
 ﻿@model Film
 
-<img src="@Model.Poster" alt="@Model.Title" />
-<div>@Model.Title</div>
-<div>@Model.Duration</div>
+<div class="container overflow-hidden">
+    <div class="row">
+        <div class="col">
+            <img src="@Model.Poster" alt="@Model.Title" style="width:600px;height:890px;" />
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light"><div><strong>Titolo: </strong>@Model.Title</div></div>
+            <div class="p-3 border bg-light"><div><strong>Durata: </strong>@Model.Duration min</div></div>
+            <div class="p-3 border bg-light"><div><strong>Descrizione: </strong>@Model.Description</div></div>
+            <div class="p-3 border bg-light"><div><strong>PG: </strong>@Model.PG anni</div></div>
+            <div class="p-3 border bg-light">
+                <div>
+                    <strong>Attori: </strong>@foreach (Cast cast in Model.Casts)
+                    {
+                        <span>@cast.Nome</span>
+                        <span>@cast.Lastnome,</span>
+                    }
+                </div>
+            </div>
+            <div class="p-3 border bg-light"><div><strong>Anno: </strong>@Model.Year.Year</div></div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,49 @@
 ﻿@model SerieTV
 
-<img src="@Model.Poster" alt="@Model.Title" />
-<div>@Model.Title</div>
-<div>@Model.Seasons.Count()</div>
+<div class="container overflow-hidden">
+    <div class="row">
+        <div class="col">
+            <img src="@Model.Poster" alt="@Model.Title" style="width:600px;height:890px;"/>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light"><div><strong>Titolo: </strong>@Model.Title</div></div>
+            <div class="p-3 border bg-light"><div><strong>N° Stagioni: </strong>@Model.Seasons.Count()</div></div>
+            <div class="p-3 border bg-light"><div><strong>Descrizione: </strong>@Model.Description</div></div>
+            <div class="p-3 border bg-light"><div><strong>PG: </strong>@Model.PG</div></div>
+            <div class="p-3 border bg-light">
+                <div>
+                <strong>Attori: </strong>@foreach(Cast cast in Model.Casts){
+                        <span>@cast.Nome</span>
+                        <span>@cast.Lastnome</span>
+                    }
+                </div>
+            </div>
+            <div class="p-3 border bg-light"><div><strong>Anno: </strong>@Model.Year.Year</div></div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="d-flex justify-content-between mt-2">
+                    <a class="btn mr-2" href="@Url.Action("CreateSeason", "Admin", new { id = Model.Id })">
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Aggiungi una stagione</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="CreateSerie">
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Aggiungi un episodio</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
