@@ -8,6 +8,7 @@ using Azure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Build.Framework;
 
 namespace Boolflix.Controllers
 {   
@@ -259,6 +260,23 @@ namespace Boolflix.Controllers
             db.SaveChanges();
 
             return RedirectToAction("DetailSerie", "Home", new { ID = id });
+        }
+
+        public IActionResult CreateEpisode(int id)
+        {
+            Episode episode = new Episode();
+
+            return View(episode);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateEpisode(Episode episode)
+        {
+            episode.Remaining_time = episode.Duration;
+            db.Episodes.Add(episode);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home"); ;
         }
     }
 }

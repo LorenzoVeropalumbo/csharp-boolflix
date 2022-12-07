@@ -39,6 +39,12 @@ namespace Boolflix.Controllers
             return View(serieTV);
         }
 
+        public IActionResult IndexFilm(int id)
+        {
+            List<Film> films = boolflixRepository.AllFilm();
+            return View(films);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,0 +1,28 @@
+﻿@model List<Film>
+<h2>Lista dei film</h2>
+<div class="container-fluid">
+    <div class="row index_boolflix">
+        @foreach (Film film in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })"><img src="@film.Poster" class="card-img-top" alt="@film.Title"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@film.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@film.Compatibility% Compatibile</h6>
+                        <p class="card-text">@film.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
+                            <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -19,6 +19,15 @@
                 </div>
             </div>
             <div class="p-3 border bg-light"><div><strong>Anno: </strong>@Model.Year.Year</div></div>
+            <div class="p-3 border bg-light">
+                <div>
+                    <strong>Stagioni: </strong>@foreach (Season season in Model.Seasons)
+                    {
+                        <span>@season.SeasonNumber</span>
+                        <span></span>
+                    }
+                </div>
+            </div>
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="d-flex justify-content-between mt-2">
@@ -32,7 +41,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="CreateSerie">
+                    <a class="btn mr-2" href="@Url.Action("CreateEpisode", "Admin", new { id = Model.Id })">
                         <div class="col-md-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" class="card-img-top" alt="...">
