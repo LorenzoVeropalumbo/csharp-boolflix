@@ -2,12 +2,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@model IndexData
-
+@model IndexData2
+<h1>Azione</h1>
 <div class="container-fluid">
     <div class="row index_boolflix">
         
-        @foreach (Film film in Model.Films)
+        @foreach (Film film in Model.IndexDataAzione.Films)
         {
             <div class="col-md-4">
                 <div class="card">
@@ -31,7 +31,113 @@
         }
         
         
-        @foreach (SerieTV serie in Model.Series)
+        @foreach (SerieTV serie in Model.IndexDataAzione.Series)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailSerie", "Home", new { id = serie.Id })"><img src="@serie.Poster" class="card-img-top" alt="@serie.Title"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@serie.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@serie.Compatibility% Compatibile</h6>
+                        <p class="card-text">@serie.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="Admin" asp-action="DeleteSerie" asp-route-id="@serie.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@if (Model.IndexDataAvventura.Films.Count > 0 || Model.IndexDataAvventura.Series.Count > 0)
+{
+<h1>Avventura</h1>
+<div class="container-fluid">
+    <div class="row index_boolflix">
+
+        @foreach (Film film in Model.IndexDataAvventura.Films)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })"><img src="@film.Poster" class="card-img-top" alt="@film.Title"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@film.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@film.Compatibility% Compatibile</h6>
+                        <p class="card-text">@film.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
+                            <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @foreach (SerieTV serie in Model.IndexDataAvventura.Series)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailSerie", "Home", new { id = serie.Id })"><img src="@serie.Poster" class="card-img-top" alt="@serie.Title"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@serie.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@serie.Compatibility% Compatibile</h6>
+                        <p class="card-text">@serie.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="Admin" asp-action="DeleteSerie" asp-route-id="@serie.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}
+
+<h1>Horror</h1>
+<div class="container-fluid">
+    <div class="row index_boolflix">
+
+        @foreach (Film film in Model.IndexDataHorror.Films)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="btn mr-2" href="@Url.Action("DetailFilm", "Home", new { id = film.Id })"><img src="@film.Poster" class="card-img-top" alt="@film.Title"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@film.Title</h5>
+                        <h6 class="card-subtitle mb-2" style="color: green;">@film.Compatibility% Compatibile</h6>
+                        <p class="card-text">@film.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn mr-2" href="@Url.Action("UpdateFilm", "Admin", new { id = film.Id })">Modifica</a>
+                            <form asp-controller="Admin" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post" class="d-inline btn">
+                                <button type="submit">
+                                    Elimina
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @foreach (SerieTV serie in Model.IndexDataHorror.Series)
         {
             <div class="col-md-4">
                 <div class="card">

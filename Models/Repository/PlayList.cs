@@ -1,4 +1,7 @@
-﻿namespace Boolflix.Models.Repository
+﻿using Boolflix.Data;
+using Boolflix.Models.DataHome;
+
+namespace Boolflix.Models.Repository
 {
     public class PlayList
     {
@@ -9,9 +12,9 @@
             this.strategy = strategy;
         }
         
-        public void EseguiStrategy(Strategy strategy,string Genre)
+        public IndexData EseguiStrategy(Strategy strategy,string Genre, BoolflixDbContext db)
         {
-            strategy.AlgorithmInterface(Genre);
+            return strategy.AlgorithmInterface(Genre, db);
         }
     }
 

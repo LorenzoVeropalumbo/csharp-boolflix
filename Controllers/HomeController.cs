@@ -23,9 +23,13 @@ namespace Boolflix.Controllers
 
         public IActionResult Index()
         {
-            IndexData indexData = boolflixRepository.All();
+            IndexData2 indexData2 = new IndexData2();
+            indexData2.IndexDataAzione = boolflixRepository.SearchByGenre("Azione");
+            indexData2.IndexDataAvventura = boolflixRepository.SearchByGenre("Avventura");
+            indexData2.IndexDataHorror = boolflixRepository.SearchByGenre("Horror");
+            indexData2.IndexDataFantasy = boolflixRepository.SearchByGenre("Fantasy");
             
-            return View(indexData);
+            return View(indexData2);
         }
 
         public IActionResult DetailFilm(int id)
@@ -36,6 +40,7 @@ namespace Boolflix.Controllers
         public IActionResult DetailSerie(int id)
         {
             SerieTV serieTV = boolflixRepository.GetSerieById(id);
+
             return View(serieTV);
         }
 
@@ -44,7 +49,6 @@ namespace Boolflix.Controllers
             List<Film> films = boolflixRepository.AllFilm();
             return View(films);
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

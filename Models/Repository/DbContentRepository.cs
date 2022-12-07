@@ -40,7 +40,7 @@ namespace Boolflix.Models.Repository
 
         public SerieTV GetSerieById(int id)
         {
-            return db.SerieTVs.Where(s => s.Id == id).Include("Casts").Include("Genres").Include("Seasons").FirstOrDefault();
+            return db.SerieTVs.Where(s => s.Id == id).Include("Casts").Include("Genres").Include("Seasons").Include("Seasons.Episodes").FirstOrDefault();
         }
 
         public void CreateFilm(Film film, List<int> selectedGenre, List<int> selectedCast)
@@ -143,6 +143,16 @@ namespace Boolflix.Models.Repository
         public List<Content> SearchByTitle(string? title)
         {
             throw new NotImplementedException();
+        }
+
+        public IndexData SearchByGenre(string genre)
+        {
+            PlayList playList = new PlayList();
+            Strategy strategy = new SearchByCategory();
+            playList.SetStrategy(strategy);
+            IndexData serieTVs = playList.EseguiStrategy(strategy, genre, db);
+
+            return serieTVs;
         }
 
     }

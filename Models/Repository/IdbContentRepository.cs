@@ -16,6 +16,7 @@ namespace Boolflix.Models.Repository
         void UpdateFilm(Film film, Film formData, List<int>? selectedGenre, List<int>? selectedCast);
         void DeleteFilm(Film film);
         void DeleteSerie(SerieTV serieTV);
+        public IndexData SearchByGenre(string genre);
 
         List<Content> SearchByTitle(string? title);        
         

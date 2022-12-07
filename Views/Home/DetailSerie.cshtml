@@ -1,4 +1,5 @@
-﻿@model SerieTV
+﻿
+@model SerieTV
 
 <div class="container overflow-hidden">
     <div class="row">
@@ -21,9 +22,19 @@
             <div class="p-3 border bg-light"><div><strong>Anno: </strong>@Model.Year.Year</div></div>
             <div class="p-3 border bg-light">
                 <div>
-                    <strong>Stagioni: </strong>@foreach (Season season in Model.Seasons)
+                    @foreach (Season season in Model.Seasons)
                     {
-                        <span>@season.SeasonNumber</span>
+                        <span><strong>Stagione: </strong> @season.SeasonNumber</span>
+                        @if (season.Episodes != null)
+                        {
+                            @foreach (Episode episode in season.Episodes){
+                                <div class="p-3 border bg-light"><div><strong>Episodio N°: </strong>@episode.Id</div></div>
+                                <div class="p-3 border bg-light"><div><strong>Titolo: </strong>@episode.Title</div></div>
+                                <div class="p-3 border bg-light"><div><strong>Descriozione: </strong>@episode.Description</div></div>
+                                <div class="p-3 border bg-light"><div><strong>Durata: </strong>@episode.Duration</div></div>
+                            }
+                        }
+
                     }
                 </div>
             </div>
